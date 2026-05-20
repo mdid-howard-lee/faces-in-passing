@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FACES IN PASSING | Win Their Hearts. Stop Their Pulses.</title>
+    
+    <style>
+        /* --- 1. GLOBAL VARIABLES & RESET (30 lines) --- */
+        :root {
+            /* Colors: Based on the high-fidelity dark/intense concept */
+            --bg-ultra-dark: #050505; /* Blackest background */
+            --bg-dark: #111111;       /* Main dark background */
+            --bg-alt: #1a1a1a;        /* Alternating section background */
+            --text-main: #eeeeee;     /* Off-white main text */
+            --text-muted: #a0a0a0;    /* Muted gray text */
+            --accent: #e74c3c;        /* High-fidelity fractured red accent */
+            --accent-hover: #ff6b6b;  /* Brighter red for hover */
+            --white: #ffffff;
+            --black: #000000;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Strong shadow */
+
+            /* Typography */
+            --font-main: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-title: 'Montserrat', sans-serif; /* For consistency, but bold */
+            --header-height: 90px;
+
+            /* Transitions */
+            --transition-fast: all 0.2s ease;
+            --transition-main: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+        }
+
+        /* Comprehensive Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none; /* Consider replacing for accessibility */
+        }
+
+        html {
+            font-family: var(--font-main);
+            background-color: var(--bg-ultra-dark);
+            color: var(--text-main);
+            scroll-behavior: smooth; /* Smooth scrolling between anchors */
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- 2. BASE TYPOGRAPHY (40 lines) --- */
+        h1, h2, h3, h4, h5, h6 {
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        h1 { font-size: 5rem; line-height: 1; font-weight: 900; }
+        h2 { font-size: 2.5rem; line-height: 1.1; }
+        h3 { font-size: 1.8rem; letter-spacing: 1px; }
+        h4 { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.15rem;
+            font-weight: 400;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition-main); }
+        ul { list-style: none; }
+        span.fracture { color: var(--accent); position: relative; font-weight: 200; font-style: italic;}
+
+        /* --- 3. UTILITIES & LAYOUT (50 lines) --- */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Specific section styling utilities */
+        .section-padding { padding: 140px 0; }
+        .full-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative;}
+        .dark-bg { background-color: var(--bg-dark); }
+        .alt-bg { background-color: var(--bg-alt); }
+
+        /* Grid helpers */
+        .grid { display: grid; gap: 60px; align-items: center; }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 40px;}
+        .grid-4 { grid-template-columns: repeat(4, 1fr); gap: 30px;}
+
+        /* Column reverse utilities for alternating layouts */
+        .grid-2.reverse .col-img { grid-column: 2; grid-row: 1; }
+        .grid-2.reverse .col-text { grid-column: 1; grid-row: 1; }
+
+        /* Positioning helpers */
+        .pos-relative { position: relative; z-index: 10; }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        /* General element utilities */
+        .shadow { box-shadow: var(--shadow); }
+        .border-radius { border-radius: 8px; }
+        .margin-top { margin-top: 80px;}
+
+        /* --- 4. BUTTONS & UI (40 lines) --- */
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:active { transform: translateY(1px); }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+            border: 2px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--text-main);
+        }
+        .btn-secondary:hover {
+            background-color: var(--text-main);
+            color: var(--bg-dark);
+            border-color: var(--text-main);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--white);
+            color: var(--white);
+        }
+        .btn-outline.accent:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* --- 5. PRELOADER BLOCK (40 lines) --- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: var(--bg-ultra-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 1s ease-out, visibility 1s ease-out;
+        }
+
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content { text-align: center; }
+        .loader-logo { font-size: 3rem; margin-bottom: 2rem; color: var(--text-main); letter-spacing: 4px; font-weight: 900;}
+        .loader-logo .fracture { color: var(--accent); font-weight: 200; font-style: italic;}
+
+        .loader-bar-container {
+            width: 250px;
+            height: 4px;
+            background-color: #222;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loader-bar {
+            width: 0%;
+            height: 100%;
+            background-color: var(--accent);
+            position: absolute;
+            animation: loadProgress 2.5s ease-in-out forwards;
+        }
+
+        .loader-content p { font-size: 1rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin: 0;}
+
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            40% { width: 60%; }
+            80% { width: 90%; }
+            100% { width: 100%; }
+        }
+
+        /* --- 6. HEADER/NAV BLOCK (50 lines) --- */
+        header {
+            height: var(--header-height);
+            background-color: rgba(5, 5, 5, 0.98);
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid #1a1a1a;
+            transition: background 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Specific logo styling */
+        .logo { font-weight: 800; font-size: 1.6rem; letter-spacing: 2px; color: var(--white); text-transform: uppercase; }
+        .logo span.fracture { font-weight: 200; color: var(--accent); }
+
+        /* Nav links block */
+        .nav-links { display: flex; gap: 40px; align-items: center; }
+        .nav-links a { text-transform: uppercase; letter-spacing: 1px; font-weight: 700; font-size: 0.95rem; color: var(--text-main); }
+        .nav-links a:not(.cta-nav):hover { color: var(--accent); }
+
+        /* Call-to-action button in navigation */
+        .cta-nav {
+            border: 1px solid var(--accent);
+            padding: 10px 25px;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+        .cta-nav:hover { background-color: var(--accent); color: var(--white); }
+
+        /* --- 7. HOME / HERO SECTION BLOCK (60 lines) --- */
+        #hero { padding-top: var(--header-height); background-color: var(--bg-ultra-dark); }
+
+        .hero-bg-placeholder {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: var(--bg-ultra-dark);
+            z-index: -1;
+            /* Placeholder for image/video background */
+        }
+
+        .hero-content { position: relative; z-index: 1; text-align: center; max-width: 900px;}
+
+        /* Small tagline above the title */
+        .tagline-small { text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 5px; font-size: 0.9rem; margin-bottom: 1rem; }
+        
+        /* Main title "FACES IN PASSING" */
+        .main-title { font-size: 7rem; line-height: 0.9; margin-bottom: 2rem; }
+        
+        /* Thematic quote "Win their hearts, stop their pulses" */
+        .tagline-main { font-size: 1.8rem; color: var(--white); font-weight: 400; font-style: italic; margin-bottom: 4rem; max-width: 700px; margin-left: auto; margin-right: auto;}
+        
+        /* Hero buttons container */
+        .hero-btns { display: flex; gap: 20px; justify-content: center; }
+
+        /* Visual fracture effect helper for section headers */
+        .accent-fracture { color: var(--accent); position: relative; font-weight: 200; font-style: italic; display: inline-block; }
+
+        /* --- 8. ABOUT GAME SECTION BLOCK (50 lines) --- */
+        #about { position: relative; overflow: hidden;}
+        
+        /* Section number detail */
+        .section-number { font-size: 6rem; font-weight: 900; color: rgba(255, 255, 255, 0.03); position: absolute; top: 100px; left: 30px; z-index: -1; font-style: italic; }
+        .section-number-alt { font-size: 6rem; font-weight: 900; color: rgba(255, 255, 255, 0.03); position: absolute; bottom: 100px; right: 30px; z-index: -1; font-style: italic; }
+
+        /* Section header block with central numbering detail */
+        .section-header { margin-bottom: 80px;}
+        .section-header h2 { margin-bottom: 1rem;}
+        .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.2rem;}
+
+        /* Image columns styling */
+        .col-img .placeholder-image {
+            min-height: 400px;
+            background-color: var(--bg-alt);
+            display: flex; align-items: center; justify-content: center;
+            border: 2px dashed #333; color: #444; font-weight: 700; text-transform: uppercase;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+        }
+
+        /* Character profile picture styling specifically */
+        .placeholder-image.char-profile { min-height: 500px; }
+
+        /* Specific text paragraph detailing location/key info */
+        .info-block { margin-top: 2rem; border-top: 1px dashed #333; padding-top: 2rem;}
+        .info-block p { color: var(--white); font-weight: 700; font-size: 1.1rem; }
+
+        /* --- 9. CHARACTER SELECTION MECHANIC BLOCK (60 lines) --- */
+        #characters { position: relative; }
+
+        /* Centered numbering */
+        .section-number-center { font-size: 6rem; font-weight: 900; color: rgba(255, 255, 255, 0.03); position: absolute; top: 100px; left: 50%; transform: translateX(-50%); z-index: -1; font-style: italic; }
+
+        /* A/B comparison block layout */
+        .char-split { margin-top: 80px;}
+        
+        /* Character destiny box */
+        .destiny-box {
+            background-color: var(--bg-dark);
+            padding: 50px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #1a1a1a;
+            transition: var(--transition-main);
+            box-shadow: var(--shadow);
+        }
+
+        /* Hover interaction for destiny boxes */
+        .destiny-box:hover { border-color: #333; transform: translateY(-5px); }
+        .destiny-box.path-b:hover { border-color: rgba(231, 76, 60, 0.4); box-shadow: 0 10px 30px rgba(231, 76, 60, 0.1); }
+
+        /* Character image placeholder within the box */
+        .placeholder-char {
+            min-height: 350px;
+            width: 100%;
+            margin-bottom: 2.5rem;
+            border-radius: 8px;
+            background-color: var(--bg-ultra-dark);
+            display: flex; align-items: center; justify-content: center;
+            border: 2px dashed #333; color: #444; font-weight: 700; text-transform: uppercase;
+        }
+
+        /* Detailed styling for path A vs Path B descriptions */
+        .destiny-box h3 { font-size: 1.8rem; color: var(--white); margin-bottom: 1rem; }
+        .char-tagline { color: var(--accent); font-weight: 700; font-style: italic; margin-bottom: 1.5rem; display: block; font-size: 1rem; }
+        
+        /* Content in the destiny box */
+        .destiny-box p { font-size: 1.1rem; margin-bottom: 1.5rem;}
+        .key-item { color: var(--white); font-style: italic; margin-bottom: 2rem;}
+
+        /* --- 10. GAME MECHANICS BLOCK (60 lines) --- */
+        #mechanics { position: relative;}
+
+        /* Section number detail */
+        .section-number-right { font-size: 6rem; font-weight: 900; color: rgba(255, 255, 255, 0.03); position: absolute; top: 100px; right: 30px; z-index: -1; font-style: italic; }
+
+        /* Flex container for the mechanics content */
+        .mechanics-block { display: flex; flex-direction: column; gap: 100px; }
+
+        /* Main text explanation for mechanics */
+        .mechanics-explanation { text-align: center; max-width: 900px; margin: 0 auto; }
+        .mechanics-explanation p { font-size: 1.2rem; }
+        
+        /* A stylized quote emphasizing the choice mechanic */
+        .mechanics-quote { color: var(--accent); font-style: italic; font-weight: 600; font-size: 1.4rem; border-top: 1px dashed #333; padding-top: 2rem; margin-top: 3rem; text-transform: uppercase; letter-spacing: 1px;}
+
+        /* Visual mechanics gallery showcasing specific gameplay details */
+        .mechanics-gallery { margin-top: 80px;}
+        .gallery-item { text-align: center; display: flex; flex-direction: column; gap: 20px;}
+        
+        /* Placeholder styling for gallery images */
+        .gallery-item .placeholder-image {
+            min-height: 400px;
+            background-color: var(--bg-ultra-dark);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px dashed #333; color: #444; font-weight: 700; text-transform: uppercase;
+        }
+
+        /* Captions for the visual gallery */
+        .gallery-caption { color: var(--white); font-weight: 800; text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; }
+
+        /* --- 11. CONTACT SECTION BLOCK (50 lines) --- */
+        #contact { position: relative; }
+
+        /* Centered numbering */
+        .section-number-center-bottom { font-size: 6rem; font-weight: 900; color: rgba(255, 255, 255, 0.03); position: absolute; top: 100px; left: 50%; transform: translateX(-50%); z-index: -1; font-style: italic; }
+
+        /* Main structure of the contact block */
+        .grid-contact { align-items: flex-start; gap: 80px;}
+
+        /* Left side: Contact information details */
+        .contact-info { border-left: 2px dashed #333; padding-left: 40px;}
+        .contact-info p { max-width: 500px; margin-bottom: 2.5rem; }
+
+        /* Styling for the large external form link as requested */
+        .form-link { font-size: 2.5rem; font-weight: 900; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; display: inline-block; margin-bottom: 2.5rem; position: relative; }
+        .form-link:hover { color: var(--accent-hover); }
+        
+        /* Specific accent underline visual effect */
+        .form-link::after { content: ''; display: block; width: 100%; height: 4px; background-color: var(--accent); position: absolute; bottom: -5px; left: 0; transform: scaleX(0); transition: var(--transition-main); }
+        .form-link:hover::after { transform: scaleX(1); background-color: var(--accent-hover); }
+
+        /* Social/contact details list */
+        .contact-details-list { margin-top: 3rem;}
+        .contact-details-list li { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-muted); }
+        .contact-details-list li strong { color: var(--white); }
+
+        /* Right side: large CTA button as bottom anchor */
+        .contact-cta { text-align: center; }
+
+        /* Large anchor button style */
+        .btn-outline.accent.large { padding: 18px 50px; font-size: 1.1rem; text-transform: uppercase; font-weight: 800; letter-spacing: 2px; }
+
+        /* --- 12. FOOTER BLOCK (40 lines) --- */
+        footer {
+            background-color: var(--bg-ultra-dark);
+            padding: 100px 0 60px 0;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        footer h2 { font-size: 2.5rem; margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.1;}
+        footer p { max-width: 600px; margin-left: auto; margin-right: auto; margin-bottom: 3rem; }
+
+        /* QR Code integration block */
+        .qr-section { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 30px;}
+        
+        /* Placehoder styling for the QR Code and Website link picture */
+        .qr-container {
+            width: 180px; height: 180px; 
+            border-radius: 8px;
+            background-color: var(--white); /* Typically light for QR */
+            display: flex; align-items: center; justify-content: center;
+            color: var(--black); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; padding: 10px;
+        }
+        
+        /* QR Code visual helper description */
+        .qr-description { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 1rem; }
+
+        /* Simple copyright detail */
+        .copyright { font-size: 0.95rem; color: #444; margin-top: 60px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- 13. MEDIA QUERIES BLOCK (50 lines) --- */
+        /* --- Tablet Landscape (1280px) --- */
+        @media (max-width: 1280px) {
+            h1 { font-size: 6rem; }
+            .grid { gap: 40px;}
+        }
+
+        /* --- Tablet Portrait (1024px) --- */
+        @media (max-width: 1024px) {
+            :root { --header-height: 80px; }
+            h1 { font-size: 5rem; }
+            .grid { gap: 30px;}
+            .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            
+            /* Section padding adjustments */
+            .section-padding { padding: 100px 0; }
+            
+            /* Character split adjustment */
+            .char-split { grid-template-columns: 1fr; gap: 40px; }
+            
+            /* Nav link spacing */
+            .nav-links { gap: 20px; }
+        }
+
+        /* --- Mobile Landscape (768px) --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 4rem; }
+            h2 { font-size: 2.2rem; }
+            
+            /* Unified centering/adjusting layouts for mobile */
+            .grid-2, .grid-3, .grid-4, .grid-contact, .grid-mechanics { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            
+            /* Reversing order back to default for alternating columns */
+            .grid-2.reverse .col-img { grid-column: 1; grid-row: 1; }
+            .grid-2.reverse .col-text { grid-column: 1; grid-row: 2; }
+            
+            /* Simplified Nav hiding (Accessibility: This needs a toggle script) */
+            .nav-links { display: none; }
+            
+            /* Adjusting section numbering visualization for mobile visibility */
+            .section-number, .section-number-center, .section-number-right, .section-number-center-bottom, .section-number-alt { font-size: 4rem; opacity: 0.05;}
+            
+            /* Contact block info centering */
+            .contact-info { border-left: none; padding-left: 0; }
+            .contact-info p { margin-left: auto; margin-right: auto; }
+            
+            /* Contact large form link size adjustment */
+            .form-link { font-size: 1.8rem; letter-spacing: 2px;}
+            
+            /* Large section headers mobile adjustment */
+            .hero-content { padding: 0 10px; }
+            .tagline-main { font-size: 1.5rem; padding: 0 10px; margin-bottom: 3rem;}
+        }
+
+        /* --- Mobile Portrait (480px) --- */
+        @media (max-width: 480px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 1.8rem; }
+            
+            /* Padding and spacing adjustments */
+            .container { padding: 0 20px; }
+            .section-padding { padding: 80px 0; }
+            .margin-top { margin-top: 60px; }
+            
+            /* Destiny box interior padding mobile */
+            .destiny-box { padding: 30px; }
+            
+            /* Placeholder mobile minimums */
+            .placeholder-image { min-height: 300px; }
+            .placeholder-image.char-profile { min-height: 400px;}
+            
+            /* Footnotes visualization mobile */
+            .tagline-main { font-size: 1.3rem;}
+            .qr-description { font-size: 0.9rem;}
+        }
+        /* --- END CSS --- */
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader-content">
+            <h2 class="loader-logo">F<span class="fracture">I</span>P</h2>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+            </div>
+            <p>Entering Rosewood High...</p>
+        </div>
+    </div>
+
+    <header>
+        <nav class="container">
+            <a href="#hero" class="logo">F<span class="fracture">I</span>P<span class="logo-text"> FACES IN PASSING</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About Game</a></li>
+                <li><a href="#characters">Path Selection</a></li>
+                <li><a href="#mechanics">Mechanism</a></li>
+                <li><a href="#contact" class="cta-nav">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="full-screen alt-bg">
+            <div class="hero-bg-placeholder"></div>
+            <div class="container hero-content pos-relative text-center">
+                <p class="tagline-small">A Mobile First-POV Roleplay Simulation</p>
+                
+                <h1 class="main-title">FACES<br> IN <span class="accent-fracture">PASSING</span></h1>
+                
+                <p class="tagline-main">“Win their hearts, stop their pulses”</p>
+                
+                <div class="hero-btns margin-top">
+                    <a href="#about" class="btn btn-primary">Enter the game</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section-padding dark-bg">
+            <div class="section-number">01</div>
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>About the Game</h2>
+                    <p>Every connection is calculated. Every choice matters.</p>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="col-img">
+                        <div class="placeholder-image shadow">
+                            <span>IMG: CLIMBING THE HIERARCHY</span>
+                        </div>
+                    </div>
+                    <div class="col-text text-left">
+                        <h3>Purpose: Climb or Fall</h3>
+                        <p>FACES IN PASSING is a tense mobile roleplay simulation about striving to be prom queen at Rosewood High. Play as Astrid Cole, a former student whose popularity is failing. Risk it all and do anything necessary to become the most popular character, clawing your way back to the top by navigating a landscape of shifting alliances, fractured trust, and social manipulation.</p>
+                        
+                        <div class="info-block">
+                            <p><strong>Game Location:</strong> Rosewood High School</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-2 reverse margin-top padding-top">
+                    <div class="col-text text-left">
+                        <h3>Astrid Cole</h3>
+                        <p>She’s no longer as liked and popular as before, now choosing between staying “Who I Am?” or seeking to be “Who They Want.” Every hallway interaction, social media post, and private conversation forces her to decide: true identity, or a temporary, calculated mask?</p>
+                    </div>
+                    <div class="col-img">
+                        <div class="placeholder-image shadow char-profile">
+                            <span>PIC: ASTRID COLE PROFILE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="characters" class="section-padding alt-bg">
+            <div class="section-number-center">02</div>
+            <div class="container text-center">
+                <div class="section-header">
+                    <h2>Choose Her Path</h2>
+                    <p>One Protagonist. Two Destinies. Choices that echo.</p>
+                </div>
+
+                <div class="char-split grid grid-2">
+                    
+                    <div class="destiny-box path-a col">
+                        <div class="placeholder-char shadow">
+                            <span>ASTRID: True Self</span>
+                        </div>
+                        <h3>Path A: The Friend</h3>
+                        <span class="char-tagline">“WHO I AM?”</span>
+                        <p>Focus on real connections. Stay true to yourself, sacrificing popularity for real relationships. Choose empathy and honesty, even if it leaves you exposed.</p>
+                        <p class="key-item"><strong>Key Item:</strong> Friendship Bracelet (Symbolizes connection)</p>
+                        <a href="#" class="btn btn-outline">Choose True Self</a>
+                    </div>
+
+                    <div class="destiny-box path-b col">
+                        <div class="placeholder-char shadow">
+                            <span>ASTRID: Obsessed</span>
+                        </div>
+                        <h3>Path B: The Queen</h3>
+                        <span class="char-tagline">“WHO THEY WANT”</span>
+                        <p>Clutch at nominal popularity. Sabotage or giveaway everything to stay on top. Choose obsession, manipulation, and external validation at any cost.</p>
+                        <p class="key-item"><strong>Key Item:</strong> The Crowning Tiara (Symbolizes obsession)</p>
+                        <a href="#" class="btn btn-outline accent">Choose Popularity</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mechanics" class="section-padding dark-bg">
+            <div class="section-number-right">03</div>
+            <div class="container text-center mechanics-block">
+                
+                <div class="section-header">
+                    <h2>Game Mechanics</h2>
+                    <p>Intimate first-person perspective, expansive social control.</p>
+                </div>
+
+                <div class="mechanics-explanation">
+                    <h3>Game Setup</h3>
+                    <p>FACES IN PASSING is a mobile game, adopting an intimate first-person point of view (POV). Navigate the crowded corridors and specific locations of Rosewood High using an intuitive mobile joystick, monitor conversation loops, and interact with students based on their unique behavior patterns and social statuses.</p>
+                    <p>The core gameplay dynamic is defined by choice: Your choice in conversation can change the plot and lead to different consequences. Using a dedicated mobile dashboard, review conversation history, manage likes and chats, and track the consequences of your social manipulations across Rosewood High’s hierarchy.</p>
+                    
+                    <p class="mechanics-quote shadow">"*Your choice in conversation can change the plot and lead to different consequences."</p>
+                </div>
+
+                <div class="mechanics-gallery grid grid-3">
+                    <div class="gallery-item col">
+                        <div class="placeholder-image shadow border-radius">
+                            <span>PIC 1: First POV Experience</span>
+                        </div>
+                        <p class="gallery-caption">POV Exploration</p>
+                    </div>
+                    <div class="gallery-item col">
+                        <div class="placeholder-image shadow border-radius">
+                            <span>PIC 2: Interface & Joystick</span>
+                        </div>
+                        <p class="gallery-caption">Mobile UI Setup</p>
+                    </div>
+                    <div class="gallery-item col">
+                        <div class="placeholder-image shadow border-radius">
+                            <span>PIC 3: Choice & Consequence</span>
+                        </div>
+                        <p class="gallery-caption">Choices & Plots</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section-padding alt-bg">
+            <div class="section-number-center-bottom">04</div>
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>Contact us!</h2>
+                    <p>Rosewood High values your connection. Reach out for help or feedback.</p>
+                </div>
+
+                <div class="grid grid-2 grid-contact pos-relative text-left margin-top">
+                    <div class="contact-info col-text">
+                        <p>If there are any technical difficulties or feedback you want to give us, fill out the form below:</p>
+                        
+                        <a href="https://forms.gle/J6DomfDK4ixZKjq29" class="form-link large" target="_blank">Google Form</a>
+                        
+                        <ul class="contact-details-list">
+                            <li><strong>Instagram Handle:</strong> @Faces_In_Passing00</li>
+                            <li><strong>Gmail:</strong> Faces_In_Passing@gmail.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="contact-cta col-cta text-center pos-relative">
+                        <a href="https://forms.gle/J6DomfDK4ixZKjq29" target="_blank" class="btn btn-outline accent large">Send a message</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="download" class="section-padding dark-bg text-center pos-relative">
+            <div class="section-number-alt">05</div>
+            <div class="container">
+                <div class="section-header">
+                    <h2>Win Their Hearts.<br> Stop Their Pulses.</h2>
+                    <p>FACES IN PASSING. Coming Soon to iOS and Android.</p>
+                </div>
+
+                <div class="qr-section margin-top text-center">
+                    <div class="qr-container shadow border-radius">
+                        <span>PIC: QR CODE & DOWNLOAD LINK</span>
+                    </div>
+                    <p class="qr-description">Scan to Download the Demo</p>
+                </div>
+
+                <p class="copyright">© 2026 Rosewood Studios. A Roleplay Simulation.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // FACES IN PASSING - COMPLETE SITE SCRIPT
+
+        // 1. Unified function for preloader fade-out and navigation background effect
+        window.addEventListener('DOMContentLoaded', function() {
+            // Function handles events once DOM is loaded, even if images/CSS aren't
+
+            // A. Select the preloader element
+            const preloader = document.getElementById('preloader');
+
+            // B. Ensure preloader logic only runs if it exists on the page
+            if (preloader) {
+                // Select the bar specifically for potential separate manipulation (e.g., dynamic loading percentage)
+                const loaderBar = preloader.querySelector('.loader-bar');
+
+                // Add a comprehensive delay before starting the fade (e.g., 2.5 seconds to ensure visibility)
+                setTimeout(() => {
+                    // Start the fade out by applying the CSS class
+                    preloader.classList.add('fade-out');
+
+                    // Accessibility/Optimization: Remove the preloader from the DOM entirely once faded
+                    setTimeout(() => {
+                        preloader.remove(); // Removes the preloader div after 1.5 seconds (fade time)
+                    }, 1500); 
+                    
+                }, 2500); // 2500ms initial visibility delay
+            }
+
+            // 2. Optimized Navigation scroll background effect logic (60 lines CSS equivalent logic)
+            // (Note: The effect itself isn't implemented in the static HTML above, but this script is ready)
+            
+            /*
+            // Navigation background logic example (if using dynamic background effect)
+            const header = document.querySelector('header');
+            const heroSection = document.getElementById('hero');
+
+            if (header && heroSection) {
+                // Check if we are past the hero section threshold for applying the class
+                window.addEventListener('scroll', function() {
+                    // Set threshold based on hero height or fixed value
+                    const threshold = heroSection.offsetHeight - (header.offsetHeight * 1.5);
+                    
+                    if (window.scrollY > threshold) {
+                        // Apply class to solidify background once user scrolls past hero
+                        header.classList.add('header-scroll');
+                    } else {
+                        // Remove class when user scrolls back to the top of the hero
+                        header.classList.remove('header-scroll');
+                    }
+                });
+            }
+            */
+
+        }); // END window DOMContentLoaded
+    </script>
+</body>
+</html>
